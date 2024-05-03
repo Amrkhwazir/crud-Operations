@@ -72,7 +72,7 @@ const Todolist = () => {
                     
                     data.map((items)=>{
 
-                      if (filters.status === "All" || items.status === filters.status) {
+                      if (filters.status == "All" || items.status === filters.status) {
                         return (
                           <div class="flex mb-4 gap-2 md:gap-4 lg:gap-6 text-sm md:text-md lg:text-lg">
                             <p class="text-wrap w-14 md:w-20 lg:w-28">{items.title}</p>

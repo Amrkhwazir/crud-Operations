@@ -8,11 +8,21 @@ import {
 } from "react-router-dom";
 import FormList from './components/FormList.jsx';
 import UpdateData from './components/UpdateData.jsx';
+import Signin from './pages/Signin.jsx';
+import Register from './pages/Register.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/signin",
+    element: <Signin />,
+  },
+  {
+    path: "/signup",
+    element: <Register />,
   },
   {
     path: "/addformdata",
