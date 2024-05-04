@@ -3,6 +3,7 @@ import mongoose  from "mongoose";
 import dotenv from "dotenv"
 import postRoutes from "./routes/crudRoutes.js";
 import cors from "cors";
+import authRoutes from "./routes/userRoutes.js";
 
 
  const app = express();
@@ -28,6 +29,7 @@ import cors from "cors";
  //routes
 
  app.use("/api/post", postRoutes);
+ app.use("/api/auth", authRoutes);
 
  app.listen(PORT, ()=>{
     console.log(`server chal gya port number ${PORT}`);

@@ -5,7 +5,12 @@ import { Link } from 'react-router-dom'
 const Todolist = () => {
     const [data, setData] = useState([]);
     const [filters, setFilters] = useState({});
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filteredData, setFilteredData] = useState([]);
     const filter = ["All" ,"Todo", "Progress", "Done"]
+    const user =JSON.parse(localStorage.getItem('myUser')) ;
+
+    console.log(user);
 
     const handleFilters = (e) => {
         const value = e.target.value;
@@ -42,14 +47,58 @@ const Todolist = () => {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
+
+
+    // search filter
+
+    const handleSearch = (e) => {
+  
+      setSearchQuery(e.target.value);
+  
+      const filtered = data.filter(item => item.title.toLowerCase().includes(searchQuery.toLowerCase()));
+  
+      setFilteredData(filtered);
+     
+    };
+   
   return (
-    <div class="h-screen overflow-y-scroll w-full flex items-start pt-24 px-4 justify-center bg-slate-200 font-sans">
+    <div class="h-screen overflow-y-scroll w-full relative flex items-start pt-24 px-4 justify-center bg-slate-200 font-sans">
+      <div className='bg-transparent flex justify-between  px-5 md:px-10 lg:px-20 w-full h-24 absolute top-0'>
+        <div className=' w-20 md:w-32 h-20' >
+          <div className='bg-black w-14 md:w-16 lg:w-16 h-14 md:h-16 lg:h-16 mt-3 md:mt-1 lg:mt-1 rounded-full'></div>
+        </div>
+        {user ? (
+            <div className=' w-32 md:w-48 flex gap-2 justify-around items-center lg:w-72 h-20 text-sm' >
+              <p>{user.username} </p>
+            <Link to={"/signin"}><button className='bg-blue-900 text-white h-10 px-2 md:px-4 lg:px-6' >Logout</button></Link>
+          </div>
+        ) : (
+          <div className=' w-32 md:w-48 flex gap-1 justify-around items-center lg:w-72 h-20 text-sm' >
+          <Link to={"/signup"}><button className='bg-blue-900 text-white h-10 px-2  md:px-4 lg:px-6'>Register</button></Link>
+          <Link to={"/signin"}><button className='bg-blue-900 text-white h-10 px-2 md:px-4 lg:px-6' >Sign in</button></Link>
+        </div>
+        ) }
+       
+      </div>
 	<div class="bg-white rounded shadow p-6 m-4 w-[300px] md:w-2/3 lg:w-2/4">
         <div class="mb-4 flex justify-between">
-            <h1 className='mt-0 sm:mt-0 md:mt-2 lg:mt-2 font-semibold text-xl'>Todo List</h1>
+            <h1 className='mt-0 sm:mt-0 md:mt-2 lg:mt-2 font-semibold text-base'>Todo List</h1>
+            <div> 
+            <input
+            className='w-24 md:w-64 lg:w-80 p-1 md:p-1 text-sm mt-0 md:mt-1 border-2 rounded border-gray-400 focus:outline-none'
+        type="text"
+        placeholder="Search..."
+        value={searchQuery}
+        onChange={handleSearch}
+      /></div>
             <div class="flex">
-              <Link to="/addformdata"><button class="flex p-1 sm:p-2 md:p-2 lg-p-2 text-sm sm:text-sm md:text-base lg:text-lg border-2 border-blue-800 rounded text-white bg-blue-800">Add +</button></Link>
+              {
+                user ? (  <Link to="/addformdata"><button class="flex p-1 sm:p-2 md:p-1 lg:px-2 lg-p-2 mt-0 md:mt-1 text-sm sm:text-sm md:text-base lg:text-lg border-2 border-blue-800 rounded text-white bg-blue-800">Add +</button></Link>) : (
+                  <Link to="/signup"><button class="flex p-1 sm:p-2 md:p-1 lg:px-2 lg-p-2 mt-0 md:mt-1 text-sm sm:text-sm md:text-base lg:text-lg border-2 border-blue-800 rounded text-white bg-blue-800">Add +</button></Link>
+                )
+              } 
+            
             </div>
         </div>
         <div>
@@ -70,11 +119,13 @@ const Todolist = () => {
         <div>
                 {
                     
-                    data.map((items)=>{
-
+                    filteredData.map((items, indx)=>{
+                      // console.log(items);
+                      
                       if (filters.status == "All" || items.status === filters.status) {
                         return (
-                          <div class="flex mb-4 gap-2 md:gap-4 lg:gap-6 text-sm md:text-md lg:text-lg">
+                          
+                          <div key={indx} class="flex mb-4 gap-2 md:gap-4 lg:gap-6 text-sm md:text-md lg:text-lg">
                             <p class="text-wrap w-14 md:w-20 lg:w-28">{items.title}</p>
                             <p class="text-wrap w-20 md:w-28 lg:w-48">{items.desc}</p>
                             <p class="text-wrap w-14 md:w-18 lg:w-24">{items.status}</p>
@@ -84,8 +135,7 @@ const Todolist = () => {
                             </div>
                           </div>
                         );
-                      }
-                    
+                      } 
                 })
                 }
  

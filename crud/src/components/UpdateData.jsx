@@ -33,15 +33,15 @@ const UpdateData = () => {
         </div>
         <div className='flex flex-col gap-2'>
         <label>Title</label>
-        <input className='rounded border-2 p-2 w-full focus:outline-blue-900' type='text' name='title' placeholder='Enter your Title' onChange={e => setTitle(e.target.value)} />
+        <input className='rounded border-2 p-2 w-full focus:outline-blue-900' type='text' name='title' placeholder='Enter your Title' required onChange={e => setTitle(e.target.value)} />
         </div>
         <div className='flex flex-col gap-2'>
         <label>Status</label>
-        <input className='rounded border-2 p-2 w-full focus:outline-blue-900' type='text' name='title' placeholder='Enter Status' onChange={e => setStatus(e.target.value)} />
+        <input className='rounded border-2 p-2 w-full focus:outline-blue-900' type='text' name='title' placeholder='Enter Status' required onChange={e => setStatus(e.target.value)} />
         </div>
         <div className='flex flex-col gap-2'>
         <label>Description</label>
-        <textarea className='rounded border-2 p-2 focus:outline-blue-900' rows={6} cols={8} type='text' name='desc' placeholder='write something...' onChange={e => setDesc(e.target.value)} />
+        <textarea className='rounded border-2 p-2 focus:outline-blue-900' rows={6} cols={8} type='text' name='desc' placeholder='write something...' required onChange={e => setDesc(e.target.value)} />
         <div className='bg-blue-900 text-white w-24 p-2 text-center mt-4'>
             <button>Update</button>
         </div>
