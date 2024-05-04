@@ -11,11 +11,11 @@ const navigate = useNavigate();
  
   const signinHandle = async (e) => {
     e.preventDefault();
-    console.log(email, password);
+    // console.log(email, password);
     try {
         const response = await axios.post("api/auth/login", {email, password});
         
-        console.log(response);
+        // console.log(response);
         localStorage.setItem('myUser', JSON.stringify(response.data));
         navigate("/")
         

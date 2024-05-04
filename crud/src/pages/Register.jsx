@@ -9,7 +9,7 @@ const [username, setUsername] = useState("");
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 const navigate = useNavigate();
- 
+
   const signupHandler = async (e) => {
     e.preventDefault();
     console.log(username, email, password);
@@ -88,7 +88,6 @@ const navigate = useNavigate();
                   />
                 </div>
               </div>
-  
               <div className="flex flex-col gap-4">
                 <button
                   type="submit"
