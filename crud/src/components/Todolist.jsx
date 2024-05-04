@@ -8,8 +8,8 @@ const Todolist = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredData, setFilteredData] = useState([]);
     const [image, setImage] = useState(null);
-const [imageUrl, setImageUrl] = useState("");
-const fileInputRef = useRef(null);
+    const [imageUrl, setImageUrl] = useState("");
+    const fileInputRef = useRef(null);
     const filter = ["All" ,"Todo", "Progress", "Done"]
     const user =JSON.parse(localStorage.getItem('myUser')) ;
 
@@ -98,13 +98,13 @@ useEffect(() => {
 
 
    
-
+// profile click
     const handleProfilePicClick = () => {
       fileInputRef.current.click();
     };
 
 
-    
+  // pic uploading  
 const handleChange = (e) => {
   const file = e.target.files[0];
   const reader = new FileReader();
@@ -122,10 +122,6 @@ const handleChange = (e) => {
 };
 
 const imageLink = localStorage.getItem("uploadedImage");
-
-
-console.log(imageLink);
- 
    
   return (
     <div class="h-screen overflow-y-scroll w-full relative flex items-start pt-24 px-4 justify-center bg-slate-200 font-sans">
