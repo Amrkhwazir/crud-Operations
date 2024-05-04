@@ -78,7 +78,6 @@ useEffect(() => {
 
     const logoutHandler = () => {
       localStorage.removeItem("myUser");
-      window.location.reload();
     }
 
 
@@ -129,13 +128,13 @@ const imageLink = localStorage.getItem("uploadedImage");
         <div className=' w-20 md:w-32 h-20' >
           <div className='bg-black w-14 md:w-16 lg:w-16 h-14 md:h-16 lg:h-16 mt-3 md:mt-1 lg:mt-1 rounded-full'>
           <input type="file" accept="jpg, png, jpeg" ref={fileInputRef} onChange={handleChange} className='hidden' />
-          <img src={imageLink} alt="" onClick={handleProfilePicClick} className='w-full h-full rounded-full' />
+         {user ? <img src={imageLink} alt="" onClick={handleProfilePicClick} className='w-full h-full rounded-full' /> : ""} 
           </div>
         </div>
         {user ? (
             <div className=' w-32 md:w-48 flex gap-2 justify-around items-center lg:w-72 h-20 text-sm' >
               <p>{user?.username?.toUpperCase()} </p>
-            <Link to={"/"} onClick={() => logoutHandler}><button className='bg-blue-900 text-white h-10 px-2 md:px-4 lg:px-6' >Logout</button></Link>
+            <Link to={"/signin"} onClick={logoutHandler}><button className='bg-blue-900 text-white h-10 px-2 md:px-4 lg:px-6' >Logout</button></Link>
           </div>
         ) : (
           <div className=' w-32 md:w-48 flex gap-1 justify-around items-center lg:w-72 h-20 text-sm' >
