@@ -25,10 +25,12 @@ useEffect(() => {
     if (storedData) {
       setData(JSON.parse(storedData));
     }
+
   }, []);
 
   useEffect(() => {
     // Store data to localStorage whenever data changes
+    setFilteredData([...data]);
     localStorage.setItem('myData', JSON.stringify(data));
   }, [data]);
 
@@ -85,14 +87,15 @@ useEffect(() => {
 
     const handleSearch = (e) => {
   
-      const searchTerm = event.target.value;
+    const searchTerm = e.target.value;
     setSearchTerm(searchTerm);
   
     const filtered = data.filter(item =>
-      searchTerm.trim() === '' || item.title.toLowerCase().includes(searchTerm.toLowerCase())
+    item.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    setFilteredData(filtered)
+    setFilteredData(searchTerm ? filtered : data);
+
     };
 
 
@@ -184,8 +187,7 @@ const imageLink = localStorage.getItem("uploadedImage");
                 {
                     
                     filteredData.map((items, indx)=>{
-                      if(filters.status == "All" || items.status === filters.status){
-                        
+                      if( items.status === filters.status || filters.status === "All"){
                         return (
                           <div key={indx} class="flex mb-4 gap-2 md:gap-2 lg:gap-2 text-sm md:text-base lg:text-base">
                             <p class="text-wrap w-14 md:w-20 lg:w-28">{items.title}</p>
@@ -197,7 +199,8 @@ const imageLink = localStorage.getItem("uploadedImage");
                               <button class="w-16 md:w-16 lg:w-16 p-1 rounded text-white bg-red-700" onClick={e => deleteHandler(items._id)}>Remove</button>
                             </div>
                           </div>
-                        );}
+                        );
+                      }
           
                 })
                 }
